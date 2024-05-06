@@ -35,6 +35,10 @@ class CreditCardForm extends StatefulWidget {
     this.cardHolderValidator,
     this.onFormComplete,
     this.disableCardNumberAutoFillHints = false,
+    this.cardHolderNameController,
+    this.cardNumberController,
+    this.cvvCodeController,
+    this.expiryDateController,
     super.key,
   });
 
@@ -123,6 +127,14 @@ class CreditCardForm extends StatefulWidget {
   /// A validator for card holder text field.
   final ValidationCallback? cardHolderValidator;
 
+  final MaskedTextController? cardNumberController;
+
+  final TextEditingController? expiryDateController;
+
+  final TextEditingController? cardHolderNameController;
+
+  final TextEditingController? cvvCodeController;
+
   /// Setting this flag to true will disable autofill hints for Credit card
   /// number text field. Flutter has a bug when auto fill hints are enabled for
   /// credit card numbers it shows keyboard with characters. But, disabling
@@ -149,25 +161,32 @@ class _CreditCardFormState extends State<CreditCardForm> {
   late final CCModelChangeCallback onCreditCardModelChange =
       widget.onCreditCardModelChange;
 
-  late final MaskedTextController _cardNumberController = MaskedTextController(
-    mask: AppConstants.cardNumberMask,
-    text: widget.cardNumber,
-  );
+  late final TextEditingController _cardNumberController =
+      widget.cardHolderNameController ??
+          MaskedTextController(
+            mask: AppConstants.cardNumberMask,
+            text: widget.cardNumber,
+          );
 
-  late final TextEditingController _expiryDateController = MaskedTextController(
-    mask: AppConstants.expiryDateMask,
-    text: widget.expiryDate,
-  );
+  late final TextEditingController _expiryDateController =
+      widget.expiryDateController ??
+          MaskedTextController(
+            mask: AppConstants.expiryDateMask,
+            text: widget.expiryDate,
+          );
 
   late final TextEditingController _cardHolderNameController =
-      TextEditingController(
-    text: widget.cardHolderName,
-  );
+      widget.cardHolderNameController ??
+          TextEditingController(
+            text: widget.cardHolderName,
+          );
 
-  late final TextEditingController _cvvCodeController = MaskedTextController(
-    mask: AppConstants.cvvMask,
-    text: widget.cvvCode,
-  );
+  late final TextEditingController _cvvCodeController =
+      widget.cvvCodeController ??
+          MaskedTextController(
+            mask: AppConstants.cvvMask,
+            text: widget.cvvCode,
+          );
 
   final FocusNode cvvFocusNode = FocusNode();
   final FocusNode expiryDateNode = FocusNode();
