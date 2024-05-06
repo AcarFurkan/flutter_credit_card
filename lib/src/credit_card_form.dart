@@ -127,7 +127,7 @@ class CreditCardForm extends StatefulWidget {
   /// A validator for card holder text field.
   final ValidationCallback? cardHolderValidator;
 
-  final MaskedTextController? cardNumberController;
+  final TextEditingController? cardNumberController;
 
   final TextEditingController? expiryDateController;
 
